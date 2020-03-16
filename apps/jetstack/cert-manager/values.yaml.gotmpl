@@ -11,6 +11,27 @@ cert-manager:
     create: true
   webhook:
     enabled: false
-    
+
 webhook:
   enabled: false
+
+cluster:
+  domain: {{ .Values.jxRequirements.ingress.domain }}
+  provider: {{ .Values.jxRequirements.cluster.provider }}
+{{- if hasKey .Values.jxRequirements.cluster "project" }}
+  projectID: {{ .Values.jxRequirements.cluster.project }}
+{{- else }}
+  projectID: ""
+{{- end }}
+{{- if hasKey .Values.jxRequirements.cluster "region" }}
+  region: {{ .Values.jxRequirements.cluster.region }}
+{{- else }}
+  region: ""
+{{- end }}
+
+{{- if .Values.jxRequirements.ingress.tls }}
+certmanager:
+  production: "{{ .Values.jxRequirements.ingress.tls.production }}"
+  email:  "{{ .Values.jxRequirements.ingress.tls.email }}"
+  enabled: {{ .Values.jxRequirements.ingress.tls.enabled }}
+{{- end }}

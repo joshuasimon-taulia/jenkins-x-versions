@@ -1,0 +1,20 @@
+cluster:
+  domain: {{ .jxRequirements.ingress.domain }}
+  provider: {{ .jxRequirements.cluster.provider }}
+{{- if hasKey .jxRequirements.cluster "project" }}
+  projectID: {{ .jxRequirements.cluster.project }}
+{{- else }}
+  projectID: ""
+{{- end }}
+{{- if hasKey .jxRequirements.cluster "region" }}
+  region: {{ .jxRequirements.cluster.region }}
+{{- else }}
+  region: ""
+{{- end }}
+
+{{- if .jxRequirements.ingress.tls }}
+certmanager:
+  production: "{{ .jxRequirements.ingress.tls.production }}"
+  email:  "{{ .jxRequirements.ingress.tls.email }}"
+  enabled: {{ .jxRequirements.ingress.tls.enabled }}
+{{- end }}
